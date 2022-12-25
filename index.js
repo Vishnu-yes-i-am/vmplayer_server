@@ -1,6 +1,7 @@
 const axios = require('axios');
 const express = require("express");
 const cors = require("cors");
+const dotenv=require('dotenv').config();
 const bodyParser = require("body-parser");
 const app = express();
 app.use(cors());
@@ -15,7 +16,7 @@ app.post("/search", (req, res) => {
         params: { q: data.text, type: 'tracks', offset: '0', limit: '20', numberOfTopResults: '5' },
         headers: {
             'X-RapidAPI-Host': 'spotify23.p.rapidapi.com',
-            'X-RapidAPI-Key': 'c903f70099msh988b286513ae78cp1872c4jsn0e872559cc15',
+            'X-RapidAPI-Key': process.env.KEY,
 
         }
     };
@@ -27,6 +28,7 @@ app.post("/search", (req, res) => {
         console.error(error);
     });
 })
-app.listen(process.env.PORT || 4000, () => {
-    console.log(`running on port ${process.env.PORT}`);
+const port =process.env.PORT || 4000;
+app.listen(port, () => {
+    console.log(`running on port ${port}`);
 });
